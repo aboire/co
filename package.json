@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
-    "autolinker": "^1.4.3",
+    "autolinker": "^3.0.0",
     "bcrypt": "^0.8.7",
     "markdown-it": "^8.4.2",
     "meteor-node-stubs": "^0.4.1",
