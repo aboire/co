@@ -1,9 +1,17 @@
 import { Meteor } from 'meteor/meteor';
 import { moment } from 'meteor/momentjs:moment';
 import { Mongo } from 'meteor/mongo';
-
+import i18n from 'meteor/universe:i18n';
 import { Gamesmobile, Playersmobile, Questsmobile } from '../../api/gamemobile.js';
 import { Highlight } from '../../api/highlight.js';
+
+i18n.setOptions({
+  open: '__',
+  close: '__',
+  defaultLocale: 'en',
+  sameLocaleOnServerConnection: true,
+  // translationsHeaders: {'Cache-Control':'no-cache'},
+});
 
 Meteor.startup(function() {
   if (Highlight.find().count() === 0) {

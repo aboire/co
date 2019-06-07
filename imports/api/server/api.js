@@ -53,8 +53,11 @@ const callPixelMethodRest = (token, method, controller, action, post) => {
 
 apiCommunecter.postPixel = function(controller, action, params) {
   const userC = Meteor.users.findOne({ _id: Meteor.userId() });
-  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[0] && userC.services.resume.loginTokens[0].hashedToken) {
-    const retour = callPixelRest(userC.services.resume.loginTokens[0].hashedToken, 'POST', controller, action, params);
+  // console.log(userC);
+  // console.log(userC.services.resume.loginTokens[0]);
+  
+  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken) {
+    const retour = callPixelRest(userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken, 'POST', controller, action, params);
     return retour;
   }
   throw new Meteor.Error('Error identification');
@@ -62,8 +65,8 @@ apiCommunecter.postPixel = function(controller, action, params) {
 
 apiCommunecter.postPixelMethod = function(controller, action, params) {
   const userC = Meteor.users.findOne({ _id: Meteor.userId() });
-  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[0] && userC.services.resume.loginTokens[0].hashedToken) {
-    const retour = callPixelMethodRest(userC.services.resume.loginTokens[0].hashedToken, 'POST', controller, action, params);
+  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken) {
+    const retour = callPixelMethodRest(userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken, 'POST', controller, action, params);
     return retour;
   }
   throw new Meteor.Error('Error identification');
@@ -177,8 +180,8 @@ const callPixelUploadSaveRest = (token, folder, ownerId, input, dataURI, name, d
 
 apiCommunecter.postUploadPixel = (folder, ownerId, input, dataBlob, name) => {
   const userC = Meteor.users.findOne({ _id: Meteor.userId() });
-  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[0] && userC.services.resume.loginTokens[0].hashedToken) {
-    const retour = callPixelUploadRest(userC.services.resume.loginTokens[0].hashedToken, folder, ownerId, input, dataBlob, name);
+  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken) {
+    const retour = callPixelUploadRest(userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken, folder, ownerId, input, dataBlob, name);
     if (retour && retour.name) {
       return retour;
     }
@@ -192,8 +195,8 @@ apiCommunecter.postUploadSavePixel = (folder, ownerId, input, dataBlob, name, do
   const userC = Meteor.users.findOne({
     _id: Meteor.userId()
   });
-  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[0] && userC.services.resume.loginTokens[0].hashedToken) {
-    const retour = callPixelUploadSaveRest(userC.services.resume.loginTokens[0].hashedToken, folder, ownerId, input, dataBlob, name, doctype, contentKey, params);
+  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken) {
+    const retour = callPixelUploadSaveRest(userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken, folder, ownerId, input, dataBlob, name, doctype, contentKey, params);
     if (retour && retour.name) {
       return retour;
     }

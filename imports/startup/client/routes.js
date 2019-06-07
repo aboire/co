@@ -22,8 +22,11 @@ Router.map(function() {
     path: '/sign-out',
     layoutTemplate: 'layout',
     onBeforeAction() {
+      if (Meteor.userId()) {
+        console.log('logout');
       Meteor.logout();
-      // console.log('logout');
+      this.redirect('detailListHome');
+      }
       this.next();
       // Router.go('/');
     },

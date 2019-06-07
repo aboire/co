@@ -533,7 +533,7 @@
       {{#if isAdmin}}
       <a href="" class="button button-small" data-ion-popover="addMenuScopePopover"><i class="icon fa fa-plus"></i></a>
       {{else}}
-      {{> Bouton_card id=_id._str scope=scopeVar isConnect=isAttendees classOff="button-small saveattendees-link" classOn="button-small disconnectscope-link" iconOff="fa fa-link" iconOn="fa fa-unlink" titleOff=(_ "Participate")}}
+      {{> Bouton_card id=_id._str scope=scopeVar isConnect=isAttendees classOff="button-small saveattendees-link" classOn="button-small disconnectscope-link" iconOff="fa fa-link" iconOn="fa fa-unlink" titleOff=(__ "Participate")}}
       {{/if}}
       {{else}}
       {{#if isInviting 'attendees' currentUser._id}}
@@ -541,7 +541,7 @@
         <i class="icon fa fa-hourglass-half"></i> {{__ "Pending"}}
       </button>
       {{else}}
-      {{> Bouton_card id=_id._str scope=scopeVar isConnect=isAttendees classOff="button-small saveattendees-link" classOn="button-small disconnectscope-link" iconOff="fa fa-link" iconOn="fa fa-unlink" titleOff=(_ "Participate")}}
+      {{> Bouton_card id=_id._str scope=scopeVar isConnect=isAttendees classOff="button-small saveattendees-link" classOn="button-small disconnectscope-link" iconOff="fa fa-link" iconOn="fa fa-unlink" titleOff=(__ "Participate")}}
       {{/if}}
       {{#if isCordova}}
       <button class="button button-small scanner-event">{{> ionIcon icon="ios-barcode"}} {{__ "QR Scanner"}}</button>
@@ -734,7 +734,7 @@
       <a href="{{pathFor 'directory' _id=_id._str scope=scopeVar}}" class="button button-small"><i class="icon fa fa-connectdevelop"></i></a>
       {{else}}
 
-      {{> Bouton_card id=_id._str scope=scopeVar isConnect=isFollowersMe classOff="button-small followperson-link" classOn="button-small unfollowperson-link" iconOff="fa fa-rss" iconOn="fa fa-rss" titleOn=(_ "Unfollow this person") titleOff=(_ "Follow this person")}}
+      {{> Bouton_card id=_id._str scope=scopeVar isConnect=isFollowersMe classOff="button-small followperson-link" classOn="button-small unfollowperson-link" iconOff="fa fa-rss" iconOn="fa fa-rss" titleOn=(__ "Unfollow this person") titleOff=(__ "Follow this person")}}
 
       {{#if isVisibleFields 'directory'}}
       <a href="{{pathFor 'directory' _id=_id._str scope=scopeVar}}" class="button button-small"><i class="icon fa fa-connectdevelop"></i></a>
