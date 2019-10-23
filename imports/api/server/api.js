@@ -5,12 +5,15 @@ import { request } from 'meteor/froatsnook:request';
 export const apiCommunecter = {};
 
 const callPixelRest = (token, method, controller, action, post) => {
-  post['X-Auth-Token'] = token;
+  // post['X-Auth-Token'] = token;
+  // post['X-User-Id'] = Meteor.userId();
   // post['json'] = 1;
   // console.log(post);
   const responsePost = HTTP.call(method, `${Meteor.settings.endpoint}/${controller}/${action}`, {
     headers: {
       'X-Auth-Token': token,
+      'X-User-Id': Meteor.userId(),
+      'X-Auth-Name': 'comobi',
       // Origin: 'https://co-mobile.communecter.org',
     },
     params: post,
@@ -31,13 +34,16 @@ const callPixelRest = (token, method, controller, action, post) => {
 };
 
 const callPixelMethodRest = (token, method, controller, action, post) => {
-  post['X-Auth-Token'] = token;
+  // post['X-Auth-Token'] = token;
+  // post['X-User-Id'] = Meteor.userId();
   post['json'] = 1;
   // console.log(post);
   const responsePost = HTTP.call(method, `${Meteor.settings.endpoint}/${controller}/${action}`, {
     headers: {
       'X-Auth-Token': token,
-      Origin: 'https://co-mobile.communecter.org',
+      'X-User-Id': Meteor.userId(),
+      'X-Auth-Name': 'comobi',
+      // Origin: 'https://co-mobile.communecter.org',
     },
     params: post,
     npmRequestOptions: {
@@ -56,8 +62,8 @@ apiCommunecter.postPixel = function(controller, action, params) {
   // console.log(userC);
   // console.log(userC.services.resume.loginTokens[0]);
   
-  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken) {
-    const retour = callPixelRest(userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken, 'POST', controller, action, params);
+  if (userC && userC.profile && userC.profile.token) {
+    const retour = callPixelRest(userC.profile.token, 'POST', controller, action, params);
     return retour;
   }
   throw new Meteor.Error('Error identification');
@@ -65,8 +71,8 @@ apiCommunecter.postPixel = function(controller, action, params) {
 
 apiCommunecter.postPixelMethod = function(controller, action, params) {
   const userC = Meteor.users.findOne({ _id: Meteor.userId() });
-  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken) {
-    const retour = callPixelMethodRest(userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken, 'POST', controller, action, params);
+  if (userC && userC.profile && userC.profile.token) {
+    const retour = callPixelMethodRest(userC.profile.token, 'POST', controller, action, params);
     return retour;
   }
   throw new Meteor.Error('Error identification');
@@ -115,7 +121,8 @@ const dataUriToBuffer = (uri) => {
 const callPixelUploadRest = (token, folder, ownerId, input, dataURI, name) => {
   const fileBuf = dataUriToBuffer(dataURI);
   const formData = {};
-  formData['X-Auth-Token'] = token;
+  // formData['X-Auth-Token'] = token;
+  // formData['X-User-Id'] = Meteor.userId();
   formData[input] = {
     value: fileBuf,
     options: {
@@ -123,8 +130,10 @@ const callPixelUploadRest = (token, folder, ownerId, input, dataURI, name) => {
       contentType: 'image/jpeg',
     },
   };
-
-  const responsePost = request.postSync(`${Meteor.settings.endpoint}/${Meteor.settings.module}/document/upload/dir/communecter/folder/${folder}/ownerId/${ownerId}/input/${input}`, {
+  const requestWithToken = request.defaults({
+    headers: { 'X-Auth-Token': token, 'X-User-Id': Meteor.userId(), 'X-Auth-Name': 'comobi' },
+  });
+  const responsePost = requestWithToken.postSync(`${Meteor.settings.endpoint}/${Meteor.settings.module}/document/upload/dir/communecter/folder/${folder}/ownerId/${ownerId}/input/${input}`, {
     formData,
     jar: true,
   });
@@ -142,7 +151,8 @@ const callPixelUploadRest = (token, folder, ownerId, input, dataURI, name) => {
 const callPixelUploadSaveRest = (token, folder, ownerId, input, dataURI, name, doctype, contentKey, params = null) => {
   const fileBuf = dataUriToBuffer(dataURI);
   const formData = {};
-  formData['X-Auth-Token'] = token;
+  // formData['X-Auth-Token'] = token;
+  // formData['X-User-Id'] = Meteor.userId();
   formData[input] = {
     value: fileBuf,
     options: {
@@ -161,8 +171,10 @@ const callPixelUploadSaveRest = (token, folder, ownerId, input, dataURI, name, d
       formData['formOrigin'] = input;
     }
   }
-
-  const responsePost = request.postSync(`${Meteor.settings.endpoint}/${Meteor.settings.module}/document/uploadSave/dir/communecter/folder/${folder}/ownerId/${ownerId}/input/${input}/docType/${doctype}/contentKey/${contentKey}`, {
+  const requestWithToken = request.defaults({
+    headers: { 'X-Auth-Token': token, 'X-User-Id': Meteor.userId(), 'X-Auth-Name': 'comobi' },
+  });
+  const responsePost = requestWithToken.postSync(`${Meteor.settings.endpoint}/${Meteor.settings.module}/document/uploadSave/dir/communecter/folder/${folder}/ownerId/${ownerId}/input/${input}/docType/${doctype}/contentKey/${contentKey}`, {
     formData,
     jar: true,
   });
@@ -180,8 +192,8 @@ const callPixelUploadSaveRest = (token, folder, ownerId, input, dataURI, name, d
 
 apiCommunecter.postUploadPixel = (folder, ownerId, input, dataBlob, name) => {
   const userC = Meteor.users.findOne({ _id: Meteor.userId() });
-  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens && userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken) {
-    const retour = callPixelUploadRest(userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken, folder, ownerId, input, dataBlob, name);
+  if (userC && userC.profile && userC.profile.token) {
+    const retour = callPixelUploadRest(userC.profile.token, folder, ownerId, input, dataBlob, name);
     if (retour && retour.name) {
       return retour;
     }
@@ -195,8 +207,8 @@ apiCommunecter.postUploadSavePixel = (folder, ownerId, input, dataBlob, name, do
   const userC = Meteor.users.findOne({
     _id: Meteor.userId()
   });
-  if (userC && userC.services && userC.services.resume && userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken) {
-    const retour = callPixelUploadSaveRest(userC.services.resume.loginTokens[userC.services.resume.loginTokens.length - 1].hashedToken, folder, ownerId, input, dataBlob, name, doctype, contentKey, params);
+  if (userC && userC.profile && userC.profile.token) {
+    const retour = callPixelUploadSaveRest(userC.profile.token, folder, ownerId, input, dataBlob, name, doctype, contentKey, params);
     if (retour && retour.name) {
       return retour;
     }
@@ -207,7 +219,7 @@ apiCommunecter.postUploadSavePixel = (folder, ownerId, input, dataBlob, name, do
 };
 
 apiCommunecter.authPixelRest = (email, pwd) => {
-  const response = HTTP.call('POST', `${Meteor.settings.endpoint}/${Meteor.settings.module}/person/authenticate`, {
+  const response = HTTP.call('POST', `${Meteor.settings.endpoint}/${Meteor.settings.module}/person/authenticatetoken`, {
     params: {
       pwd,
       email,

@@ -5,10 +5,11 @@ Accounts.registerLoginHandler(function(loginRequest) {
     return null;
   }
 
-  const response = HTTP.call('POST', `${Meteor.settings.endpoint}/${Meteor.settings.module}/person/authenticate`, {
+  const response = HTTP.call('POST', `${Meteor.settings.endpoint}/${Meteor.settings.module}/person/authenticatetoken`, {
     params: {
       email: loginRequest.email,
       pwd: loginRequest.pwd,
+      tokenName: 'comobi'
     },
   });
 
@@ -25,15 +26,29 @@ Accounts.registerLoginHandler(function(loginRequest) {
 
     // ok valide
     const userM = Meteor.users.findOne({ _id: retourId });
+
+    const token = response.data.token ? response.data.token : false;
+
     // console.log(userM);
     if (userM) {
       // Meteor.user existe
       userId = userM._id;
+      if (token) {
+        const profile = {};
+        profile.token = token;
+        Meteor.users.update(userId, { $set: { profile } });
+      }
       Meteor.users.update(userId, { $set: { emails: [loginRequest.email] } });
     } else {
       // Meteor.user n'existe pas
       // username ou emails
       userId = Meteor.users.insert({ _id: retourId, emails: [loginRequest.email] });
+      if (token) {
+        const profile = {};
+        profile.token = token;
+        Meteor.users.update(userId, { $set: { profile } });
+      }
+      
     }
 
 

@@ -68,7 +68,7 @@ if (Meteor.isServer) {
     });
 
  News.rawCollection().createIndex(
-    { author: 1, targetIsAuthor: 1, type: 1, 'scope.type' : 1 },
+    { author: 1, type: 1, 'scope.type' : 1 },
     { name: 'author_targetIsAuthor_exists', partialFilterExpression: { author: { $exists: true },type: { $exists: true },'scope.type': { $exists: true },targetIsAuthor: { $exists: false } }, background: true }
   , (e) => {
     if(e){
