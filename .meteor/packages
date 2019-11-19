@@ -52,7 +52,7 @@ rzymek:moment-locale-fr
 #tap:i18n-ui
 #gwendall:simple-schema-i18n
 aboire:camera-ui
-fourseven:scss
+fourseven:scss@4.12.0
 webtempest:animate
 meteoric:autoform-ionic
 reactive-dict@1.3.0
