@@ -59,11 +59,11 @@
     }
   },
   "dependencies": {
-    "@babel/runtime": "^7.3.1",
+    "@babel/runtime": "^7.7.6",
     "autolinker": "^3.0.0",
     "bcrypt": "^3.0.4",
     "markdown-it": "^10.0.0",
-    "meteor-node-stubs": "^0.4.1",
+    "meteor-node-stubs": "^1.0.0",
     "sanitize-html": "^1.20.0",
     "simpl-schema": "^1.5.5"
   },
