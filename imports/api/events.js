@@ -98,6 +98,10 @@ SchemasEventsRest.extend({
       type: 'select',
     },
   },
+  public: {
+    type: Boolean,
+    defaultValue: true,
+  },
 });
 
 /* export const SchemasEventsRest = new SimpleSchema([baseSchema, geoSchema, {

@@ -1813,20 +1813,18 @@ indexMax:20 */
       cp: user.codepostal,
     };
 
-    if (user.codepostal) {
-      params.cp = user.codepostal;
-    }
     if (user.city) {
-      const insee = Cities.findOne({
+      const locality = Cities.findOne({
         insee: user.city,
       });
-      if (insee.insee && insee.insee) {
-        params.city = insee.insee;
-        params.geoPosLatitude = insee.geo.latitude;
-        params.geoPosLongitude = insee.geo.longitude;
+
+      if (locality && locality.insee) {
+        params.addressCountry = locality.country;
+        params.postalCode = user.codepostal;
+        params.codeInsee = locality.insee;
+        params.addressLocality = locality.postalCodes[0].name;
       }
     }
-
 
     // console.log(params);
 
