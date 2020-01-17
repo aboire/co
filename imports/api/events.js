@@ -366,6 +366,10 @@ Events.helpers({
       return isAdminArray(organizerEvent, citoyen);
     }
 
+    if (citoyen && bothUserId && organizerEvent) {
+      return isAdminArray(organizerEvent, citoyen);
+    }
+
     return !!((this.links && this.links.attendees && this.links.attendees[bothUserId] && this.links.attendees[bothUserId].isAdmin && this.isIsInviting('attendees', bothUserId)));
   },
   isScope (scope, scopeId) {
