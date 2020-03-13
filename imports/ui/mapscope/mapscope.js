@@ -49,19 +49,21 @@ const initialize = (element, zoom) => {
   const geo = position.getLatlng();
   const options = {
     maxZoom: 18,
+    minZoom: 0,
   };
   if (geo && geo.latitude) {
     L.mapbox.accessToken = Meteor.settings.public.mapbox;
-    const tilejson = {
+    /* const tilejson = {
       tiles: ['https://api.mapbox.com/styles/v1/communecter/cj4ziz9st0re02qo4xtqu7puz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY29tbXVuZWN0ZXIiLCJhIjoiY2l6eTIyNTYzMDAxbTJ3bng1YTBsa3d0aCJ9.elyGqovHs-mrji3ttn_Yjw'],
       minzoom: 0,
       maxzoom: 18,
-    };
+    }; */
+
     /* map = L.mapbox.map(element)
-      .setView(new L.LatLng(parseFloat(geo.latitude), parseFloat(geo.longitude)), zoom).addLayer(L.mapbox.tileLayer('mapbox.streets'));
+      .setView(new L.LatLng(parseFloat(geo.latitude), parseFloat(geo.longitude)), zoom).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
       */
-    map = L.mapbox.map(element, tilejson, options)
-      .setView(new L.LatLng(parseFloat(geo.latitude), parseFloat(geo.longitude)), zoom);
+    map = L.mapbox.map(element)
+      .setView(new L.LatLng(parseFloat(geo.latitude), parseFloat(geo.longitude)), zoom).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11', options));
 
     // const layermapbox = L.tileLayer('https://api.mapbox.com/styles/v1/communecter/cj4ziz9st0re02qo4xtqu7puz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY29tbXVuZWN0ZXIiLCJhIjoiY2l6eTIyNTYzMDAxbTJ3bng1YTBsa3d0aCJ9.elyGqovHs-mrji3ttn_Yjw').addTo(map);
 
@@ -148,9 +150,9 @@ addMarker(marker);
     if (radius && latlngObj) {
       // circle radius
       const filterCircle = L.circle([parseFloat(geo.latitude), parseFloat(geo.longitude)], radius, {
-        opacity: 0.2,
+        opacity: 0.1,
         weight: 1,
-        fillOpacity: 0.2,
+        fillOpacity: 0.1,
       }).addTo(map);
       if (!Session.get('currentScopeId')) {
         map.fitBounds(filterCircle.getBounds());
@@ -163,9 +165,9 @@ addMarker(marker);
             type: 'Feature',
             geometry: city.geoShape,
             properties: {
-              opacity: 0.2,
+              opacity: 0.1,
               weight: 1,
-              fillOpacity: 0.2,
+              fillOpacity: 0.1,
             },
           },
         ];
