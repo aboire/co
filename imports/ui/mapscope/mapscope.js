@@ -53,16 +53,16 @@ const initialize = (element, zoom) => {
   };
   if (geo && geo.latitude) {
     L.mapbox.accessToken = Meteor.settings.public.mapbox;
-    /* const tilejson = {
+    const tilejson = {
       tiles: ['https://api.mapbox.com/styles/v1/communecter/cj4ziz9st0re02qo4xtqu7puz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY29tbXVuZWN0ZXIiLCJhIjoiY2l6eTIyNTYzMDAxbTJ3bng1YTBsa3d0aCJ9.elyGqovHs-mrji3ttn_Yjw'],
       minzoom: 0,
       maxzoom: 18,
-    }; */
+    };
 
     /* map = L.mapbox.map(element)
       .setView(new L.LatLng(parseFloat(geo.latitude), parseFloat(geo.longitude)), zoom).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
       */
-    map = L.mapbox.map(element)
+    map = L.mapbox.map(element, tilejson)
       .setView(new L.LatLng(parseFloat(geo.latitude), parseFloat(geo.longitude)), zoom).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11', options));
 
     // const layermapbox = L.tileLayer('https://api.mapbox.com/styles/v1/communecter/cj4ziz9st0re02qo4xtqu7puz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY29tbXVuZWN0ZXIiLCJhIjoiY2l6eTIyNTYzMDAxbTJ3bng1YTBsa3d0aCJ9.elyGqovHs-mrji3ttn_Yjw').addTo(map);
@@ -482,7 +482,7 @@ Template.mapCanvas.onDestroyed(function () {
   const self = this;
   // console.log('destroyed');
   pageSession.set('currentScopeId', false);
-  map.remove();
+  // map.remove();
   if (self.liveQuery) {
     self.liveQuery.stop();
   }

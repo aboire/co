@@ -4,8 +4,8 @@ App.info({
   description: 'communecter mobile',
   author: 'thomas',
   email: 'thomas.craipeau@gmail.com',
-  version: '0.0.35',
-  buildNumber: '135',
+  version: '0.0.38',
+  buildNumber: '138',
 });
 
 App.setPreference('android-targetSdkVersion', '28');
@@ -113,6 +113,12 @@ App.accessRule('https://co-mobile.communecter.org/*');
 // App.accessRule('http://localhost*');
 App.accessRule('*.openstreetmap.org/*', { type: 'navigation' });
 App.accessRule('*.tile.thunderforest.com/*', { type: 'navigation' });
-App.accessRule('http://a.tiles.mapbox.com/*', { type: 'navigation' });
-App.accessRule('https://api.tiles.mapbox.com/*', { type: 'navigation' });
+App.accessRule('http://*.tiles.mapbox.com/*', { type: 'network' });
+App.accessRule('https://*.tiles.mapbox.com/*', { type: 'network' });
+App.accessRule('http://*.tiles.mapbox.com/*', { type: 'navigation' });
+App.accessRule('https://*.tiles.mapbox.com/*', { type: 'navigation' });
+App.accessRule('https://api.mapbox.com/*', { type: 'navigation' });
 App.accessRule('https://placeholdit.imgix.net/*', { type: 'navigation' });
+App.accessRule('https://mapbox.com/*', { type: 'navigation' });
+App.accessRule('https://www.mapbox.com/*', { type: 'navigation' });
+App.accessRule('https://api.mapbox.com/*', { type: 'navigation' });
