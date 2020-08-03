@@ -4,12 +4,18 @@ App.info({
   description: 'communecter mobile',
   author: 'thomas',
   email: 'thomas.craipeau@gmail.com',
-  version: '0.0.38',
-  buildNumber: '138',
+  version: '0.0.39',
+  buildNumber: '139',
 });
 
 App.setPreference('android-targetSdkVersion', '28');
 App.setPreference('android-minSdkVersion', '21');
+
+// fix App Error connection to the server was unsuccessful.
+// https://forum.ionicframework.com/t/app-error-and-cordova-deviceready-not-fired/50996/5
+App.setPreference('LoadUrlTimeoutValue', '1000000', 'android');
+App.setPreference('WebAppStartupTimeout', '1000000', 'android');
+App.setPreference('WebAppStartupTimeout', 120000);
 
 App.configurePlugin('phonegap-plugin-push', {
   SENDER_ID: 376774334081,
@@ -101,8 +107,8 @@ App.appendToConfig(`<platform name="ios">
   </platform>`);
 
 App.accessRule('*');
-App.accessRule('http://*');
-App.accessRule('https://*');
+App.accessRule('http://*', { type: 'network' });
+App.accessRule('https://*', { type: 'network' });
 App.accessRule('http://*', { type: 'navigation' });
 App.accessRule('https://*', { type: 'navigation' });
 App.accessRule('http://qa.communecter.org/*', { type: 'navigation' });

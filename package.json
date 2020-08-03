@@ -1,15 +1,22 @@
 {
   "name": "communecter",
-  "version": "0.0.34",
+  "version": "0.0.39",
   "description": "communecter",
   "private": true,
-  "scripts": {
-    "start": "meteor run",
-    "desktop": "meteor-desktop",
-    "lint": "eslint .",
-    "pretest": "npm run lint --silent",
-    "fix": "eslint imports/ --fix"
-  },
+   "scripts": {
+     "start": "MONGO_URL='mongodb://localhost:5017/pixelhumain' UNIVERSE_I18N_LOCALES=all meteor run --settings settings-test.json --port 3000",
+     "startPCfixe": "MONGO_URL='mongodb://192.168.1.25:5017/pixelhumain' UNIVERSE_I18N_LOCALES=all meteor run --settings settings-test.json --port 3000",
+     "deploy": "METEOR_CORDOVA_COMPAT_VERSION_ANDROID=547e3f612c8ec49e89afee6d510441d4315a6259 METEOR_CORDOVA_COMPAT_VERSION_IOS=ab5d143fae19621c5217446c8a712347a9df9c85 mup deploy --config=.deploy/mup.js --settings=.deploy/settings.json",
+     "desktop": "meteor-desktop",
+     "desktop-server": "MONGO_URL='mongodb://localhost:5017/pixelhumain' UNIVERSE_I18N_LOCALES=all meteor run --settings settings-prod.json --port 3000 --mobile-server=127.0.0.1:3000",
+     "desktop-build-installer": "meteor npm run desktop -- build-installer https://co-mobile.communecter.org/ --android --production",
+     "desktop-build-installer-win": "meteor npm run desktop -- build-installer https://co-mobile.communecter.org/ --android --production --win",
+     "desktop-build-installer-mac": "meteor npm run desktop -- build-installer https://co-mobile.communecter.org/ --android --production --mac",
+     "push-snap": "cd .desktop-installer && snapcraft push --release=stable communecter_0.0.39_amd64.snap",
+     "lint": "eslint .",
+     "pretest": "npm run lint --silent",
+     "fix": "eslint imports/ --fix"
+   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor",
     "rules": {
