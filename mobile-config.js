@@ -106,6 +106,22 @@ App.appendToConfig(`<platform name="ios">
     </config-file>
   </platform>`);
 
+/* App.appendToConfig(`
+<platform name="ios">
+  <splash src="${iosSplashScreensFolder}/Default@2x~universal~anyany.png" />
+</platform>
+<platform name="android">
+  <preference name="android-targetSdkVersion" value="29" />
+  <preference name="android-minSdkVersion" value="21" />
+</platform>
+<universal-links>
+  <host name="https" scheme="www.communecter.org" />
+</universal-links>
+<edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+  <application android:usesCleartextTraffic="true"></application>
+</edit-config>
+`); */
+
 App.accessRule('*');
 App.accessRule('http://*', { type: 'network' });
 App.accessRule('https://*', { type: 'network' });
