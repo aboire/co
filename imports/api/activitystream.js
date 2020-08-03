@@ -30,7 +30,7 @@ ActivityStream.api = {
   queryUnseen (userId, scopeId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
     const bothScopeId = (typeof scopeId !== 'undefined') ? scopeId : false;
-    const queryUnseen = {};
+    const queryUnseen = { type: { $ne: 'oceco' } };
     queryUnseen[`notify.id.${bothUserId}`] = { $exists: 1 };
     queryUnseen[`notify.id.${bothUserId}.isUnseen`] = true;
     if (bothScopeId) {
@@ -41,7 +41,7 @@ ActivityStream.api = {
   queryUnseenAsk (userId, scopeId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
     const bothScopeId = (typeof scopeId !== 'undefined') ? scopeId : false;
-    const queryUnseen = {};
+    const queryUnseen = { type: { $ne: 'oceco' } };
     queryUnseen[`notify.id.${bothUserId}`] = { $exists: 1 };
     queryUnseen[`notify.id.${bothUserId}.isUnseen`] = true;
     if (bothScopeId) {
@@ -53,7 +53,7 @@ ActivityStream.api = {
   queryUnread (userId, scopeId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
     const bothScopeId = (typeof scopeId !== 'undefined') ? scopeId : false;
-    const queryUnread = {};
+    const queryUnread = { type: { $ne: 'oceco' } };
     queryUnread[`notify.id.${bothUserId}`] = { $exists: 1 };
     queryUnread[`notify.id.${bothUserId}.isUnread`] = true;
     if (bothScopeId) {
@@ -64,7 +64,7 @@ ActivityStream.api = {
   isUnread (userId, scopeId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
     const bothScopeId = (typeof scopeId !== 'undefined') ? scopeId : false;
-    const query = {};
+    const query = { type: { $ne: 'oceco' } };
     query[`notify.id.${bothUserId}`] = { $exists: 1 };
     if (bothScopeId) {
       query.verb = { $nin: ['ask'] };
@@ -93,7 +93,7 @@ ActivityStream.api = {
   isUnseen (userId, scopeId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
     const bothScopeId = (typeof scopeId !== 'undefined') ? scopeId : false;
-    const query = {};
+    const query = { type: { $ne: 'oceco' } };
     query[`notify.id.${bothUserId}`] = { $exists: 1 };
     if (bothScopeId) {
       query['target.id'] = bothScopeId;
@@ -118,7 +118,7 @@ ActivityStream.api = {
   isUnseenAsk (userId, scopeId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
     const bothScopeId = (typeof scopeId !== 'undefined') ? scopeId : false;
-    const query = {};
+    const query = { type: { $ne: 'oceco' } };
     query.verb = { $in: ['ask'] };
     query[`notify.id.${bothUserId}`] = { $exists: 1 };
     if (bothScopeId) {
@@ -144,7 +144,7 @@ ActivityStream.api = {
   isUnreadAsk (userId, scopeId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
     const bothScopeId = (typeof scopeId !== 'undefined') ? scopeId : false;
-    const query = {};
+    const query = { type: { $ne: 'oceco' } };
     query.verb = { $in: ['ask'] };
     query[`notify.id.${bothUserId}`] = { $exists: 1 };
     if (bothScopeId) {

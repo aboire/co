@@ -534,3 +534,5 @@ Router.onBeforeAction(ensurePixelSignin, { except: ['login', 'signin'] });
 Router.routes.login.options.progress = false;
 Router.routes.signin.options.progress = false;
 Router.routes.listEvents.options.progress = false;
+Router.routes.detailListHome.options.progress = false;
+

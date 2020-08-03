@@ -300,7 +300,11 @@ Organizations.helpers({
   },
   isAdmin (userId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
-    return !!((this.links && this.links.members && this.links.members[bothUserId] && this.links.members[bothUserId].isAdmin && this.isToBeValidated(bothUserId) && this.isIsInviting('members', bothUserId)));
+    return !!((this.links && this.links.members && this.links.members[bothUserId] && this.links.members[bothUserId].isAdmin && this.isToBeValidated(bothUserId) && this.isAdminPending(bothUserId) && this.isIsInviting('members', bothUserId)));
+  },
+  isAdminPending(userId) {
+    const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
+    return !((this.links && this.links.members && this.links.members[bothUserId] && this.links.members[bothUserId].isAdminPending));
   },
   isToBeValidated (userId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();

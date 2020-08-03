@@ -54,7 +54,7 @@ const initialize = (element, zoom) => {
   if (geo && geo.latitude) {
     L.mapbox.accessToken = Meteor.settings.public.mapbox;
     const tilejson = {
-      tiles: ['https://api.mapbox.com/styles/v1/communecter/cj4ziz9st0re02qo4xtqu7puz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY29tbXVuZWN0ZXIiLCJhIjoiY2l6eTIyNTYzMDAxbTJ3bng1YTBsa3d0aCJ9.elyGqovHs-mrji3ttn_Yjw'],
+      tiles: ['https://api.mapbox.com/styles/v1/communecter/cj4ziz9st0re02qo4xtqu7puz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY29tbXVuZWN0ZXI5NzQiLCJhIjoiY2tkZTg4dzMwMjQ3ZTJzczgzeTBnaTluaSJ9.iuAhfoS48ApDCwF8KFgIag'],
       minzoom: 0,
       maxzoom: 18,
     };
@@ -65,7 +65,7 @@ const initialize = (element, zoom) => {
     map = L.mapbox.map(element, tilejson)
       .setView(new L.LatLng(parseFloat(geo.latitude), parseFloat(geo.longitude)), zoom).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11', options));
 
-    // const layermapbox = L.tileLayer('https://api.mapbox.com/styles/v1/communecter/cj4ziz9st0re02qo4xtqu7puz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY29tbXVuZWN0ZXIiLCJhIjoiY2l6eTIyNTYzMDAxbTJ3bng1YTBsa3d0aCJ9.elyGqovHs-mrji3ttn_Yjw').addTo(map);
+    // const layermapbox = L.tileLayer('https://api.mapbox.com/styles/v1/communecter/cj4ziz9st0re02qo4xtqu7puz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY29tbXVuZWN0ZXI5NzQiLCJhIjoiY2tkZTg4dzMwMjQ3ZTJzczgzeTBnaTluaSJ9.iuAhfoS48ApDCwF8KFgIag').addTo(map);
 
     /* if(city && city.geoShape && city.geoShape.coordinates){
     console.log(JSON.stringify(city.geoShape));
