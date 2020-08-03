@@ -86,8 +86,8 @@ aldeed:template-extension
 natestrauser:publish-performant-counts
 mizzao:user-status
 underscore@1.0.10
-omega:meteor-desktop-watcher@=2.0.0
-omega:meteor-desktop-bundler@=2.0.0
+omega:meteor-desktop-watcher@=2.2.5
+omega:meteor-desktop-bundler@=2.2.5
 universe:i18n-blaze
 universe:i18n
 
