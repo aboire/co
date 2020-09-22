@@ -32,7 +32,7 @@
     {{> buttonsProposals _id=parentId scope=parentType roomId=idParentRoom proposalId=_id._str status=status isCreator=isCreator isAdmin=../../isAdmin}}
 
     <div class="item item-divider">
-      {{title}}
+      {{name}}
     </div>
     <div class="item {{#if creatorProfile.profilThumbImageUrl}}item-avatar{{/if}}">
       {{#if creatorProfile.profilThumbImageUrl}}
@@ -628,7 +628,7 @@
 </template>
 
 <template name="proposalsFields">
-{{> afQuickField name='title'}}
+{{> afQuickField name='name'}}
 {{> afQuickField name='description' label-type='stacked' rows=8}}
 <div class="item item-text-wrap stable-bg">
   <i class='fa fa-info-circle'></i> {{__ 'schemas.proposalsrest.description.information'}}

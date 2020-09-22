@@ -155,7 +155,7 @@ Template.proposalsEdit.helpers({
     const proposal = Proposals.findOne({ _id: new Mongo.ObjectID(Router.current().params.proposalId) });
     const proposalEdit = {};
     proposalEdit._id = proposal._id._str;
-    proposalEdit.title = proposal.title;
+    proposalEdit.name = proposal.name;
     proposalEdit.description = proposal.description;
     proposalEdit.arguments = proposal.arguments;
     // transform type

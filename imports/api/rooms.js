@@ -115,7 +115,7 @@ Rooms.helpers({
     const query = {};
     query.idParentRoom = this._id._str;
     // query.status = { $in: ['amendable', 'tovote'] };
-    queryOptions.fields.title = 1;
+    queryOptions.fields.name = 1;
     queryOptions.fields.idParentRoom = 1;
     queryOptions.fields.parentId = 1;
     queryOptions.fields.parentType = 1;
@@ -128,13 +128,13 @@ Rooms.helpers({
     queryOptions.fields.voteAnonymous = 1;
     queryOptions.fields.voteCanChange = 1;
     delete queryOptions.sort.name;
-    queryOptions.sort.title = 1;
+    queryOptions.sort.name = 1;
     if (Meteor.isClient) {
       if (search) {
         if (search.charAt(0) === '#' && search.length > 1) {
           query.tags = { $regex: search.substr(1), $options: 'i' };
         } else {
-          query.title = { $regex: search, $options: 'i' };
+          query.name = { $regex: search, $options: 'i' };
         }
       }
     }
@@ -145,7 +145,7 @@ Rooms.helpers({
     const query = {};
     query.idParentRoom = this._id._str;
     // query.status = { $in: ['amendable', 'tovote'] };
-    queryOptions.fields.title = 1;
+    queryOptions.fields.name = 1;
     queryOptions.fields.idParentRoom = 1;
     queryOptions.fields.parentId = 1;
     queryOptions.fields.parentType = 1;
@@ -158,13 +158,13 @@ Rooms.helpers({
     queryOptions.fields.voteAnonymous = 1;
     queryOptions.fields.voteCanChange = 1;
     delete queryOptions.sort.name;
-    queryOptions.sort.title = 1;
+    queryOptions.sort.name = 1;
     if (Meteor.isClient) {
       if (search) {
         if (search.charAt(0) === '#' && search.length > 1) {
           query.tags = { $regex: search.substr(1), $options: 'i' };
         } else {
-          query.title = { $regex: search, $options: 'i' };
+          query.name = { $regex: search, $options: 'i' };
         }
       }
       if (status) {
@@ -184,7 +184,7 @@ Rooms.helpers({
     const query = {};
     query.idParentRoom = this._id._str;
     // query.status = { $in: ['amendable', 'tovote'] };
-    queryOptions.fields.title = 1;
+    queryOptions.fields.name = 1;
     queryOptions.fields.idParentRoom = 1;
     queryOptions.fields.parentId = 1;
     queryOptions.fields.parentType = 1;
@@ -197,13 +197,13 @@ Rooms.helpers({
     queryOptions.fields.voteAnonymous = 1;
     queryOptions.fields.voteCanChange = 1;
     delete queryOptions.sort.name;
-    queryOptions.sort.title = 1;
+    queryOptions.sort.name = 1;
     if (Meteor.isClient) {
       if (search) {
         if (search.charAt(0) === '#' && search.length > 1) {
           query.tags = { $regex: search.substr(1), $options: 'i' };
         } else {
-          query.title = { $regex: search, $options: 'i' };
+          query.name = { $regex: search, $options: 'i' };
         }
       }
     }
@@ -214,7 +214,7 @@ Rooms.helpers({
     const query = {};
     query.idParentRoom = this._id._str;
     // query.status = { $in: ['amendable', 'tovote'] };
-    queryOptions.fields.title = 1;
+    queryOptions.fields.name = 1;
     queryOptions.fields.idParentRoom = 1;
     queryOptions.fields.parentId = 1;
     queryOptions.fields.parentType = 1;
@@ -227,13 +227,13 @@ Rooms.helpers({
     queryOptions.fields.voteAnonymous = 1;
     queryOptions.fields.voteCanChange = 1;
     delete queryOptions.sort.name;
-    queryOptions.sort.title = 1;
+    queryOptions.sort.name = 1;
     if (Meteor.isClient) {
       if (search) {
         if (search.charAt(0) === '#' && search.length > 1) {
           query.tags = { $regex: search.substr(1), $options: 'i' };
         } else {
-          query.title = { $regex: search, $options: 'i' };
+          query.name = { $regex: search, $options: 'i' };
         }
       }
       if (status) {

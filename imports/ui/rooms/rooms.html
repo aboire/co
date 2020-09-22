@@ -131,7 +131,7 @@
       </div>
       {{#transition in="zoomIn" out="bounceOut"}}
       {{#each item in (room.listProposalsStatus status search)}}
-      <a class="item animated in out" href="{{pathFor 'proposalsDetail' _id=item.parentId scope=item.parentType roomId=item.idParentRoom proposalId=item._id._str}}">{{item.title}}</a>
+      <a class="item animated in out" href="{{pathFor 'proposalsDetail' _id=item.parentId scope=item.parentType roomId=item.idParentRoom proposalId=item._id._str}}">{{item.name}}</a>
       {{else}}
 
       {{/each}}
@@ -161,7 +161,7 @@
       </div>
       {{#transition in="zoomIn" out="bounceOut"}}
       {{#each item in (room.listResolutions search)}}
-      <a class="item animated in out" href="{{pathFor 'resolutionsDetail' _id=item.parentId scope=item.parentType roomId=item.idParentRoom resolutionId=item._id._str}}">{{item.title}}</a>
+      <a class="item animated in out" href="{{pathFor 'resolutionsDetail' _id=item.parentId scope=item.parentType roomId=item.idParentRoom resolutionId=item._id._str}}">{{item.name}}</a>
       {{else}}
 
       {{/each}}

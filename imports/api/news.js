@@ -375,7 +375,7 @@ if (Meteor.isClient) {
       } else if (this.object && this.object.type === 'proposals') {
         queryOptions.fields = {
           _id: 1,
-          title: 1,
+          name: 1,
           idParentRoom: 1,
         };
       } else {

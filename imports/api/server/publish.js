@@ -657,7 +657,7 @@ Meteor.publishComposite('citoyenActusList', function(limit) {
               } else if (news.object && news.object.type === 'proposals') {
                 queryOptions.fields = {
                   _id: 1,
-                  title: 1,
+                  name: 1,
                   idParentRoom: 1,
                   profilThumbImageUrl: 1,
                 };
@@ -2283,7 +2283,7 @@ Meteor.publishComposite('newsList', function(scope, scopeId, limit) {
           } else if (news.object && news.object.type === 'proposals') {
             queryOptions.fields = {
               _id: 1,
-              title: 1,
+              name: 1,
               idParentRoom: 1,
               profilThumbImageUrl: 1,
             };
@@ -2417,7 +2417,7 @@ Meteor.publishComposite('newsDetail', function(scope, scopeId, newsId) {
           } else if (news.object && news.object.type === 'proposals') {
             queryOptions.fields = {
               _id: 1,
-              title: 1,
+              name: 1,
               idParentRoom: 1,
               profilThumbImageUrl: 1,
             };

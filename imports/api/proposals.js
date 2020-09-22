@@ -16,7 +16,7 @@ export const Proposals = new Mongo.Collection('proposals', { idGeneration: 'MONG
 
 /* //proposal
 idParentRoom:59d64c0240bb4e2e4fdcd10b
-title:test proposition
+name:test proposition
 description:test proposition
 arguments:test proposition argument
 amendementActivated:true
@@ -40,7 +40,7 @@ SchemasProposalsRest.extend({
   idParentRoom: {
     type: String,
   },
-  title: {
+  name: {
     type: String,
   },
   arguments: {
@@ -120,7 +120,7 @@ SchemasProposalsRest.extend({
   idParentRoom: {
     type: String,
   },
-  title: {
+  name: {
     type: String,
   },
   arguments: {
