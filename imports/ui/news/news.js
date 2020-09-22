@@ -809,8 +809,8 @@ Template.newsAdd.onRendered(function () {
         pageSession.set('queryTag', query);
         Meteor.call('searchTagautocomplete', query, function(error, result) {
           if (!error) {
-            // console.log(result);
-            self.$('textarea').atwho('load', '#', result).atwho('run');
+            const targsArray = result.map((tag) => ({ id: tag._id._str, name: tag.tag }));
+            self.$('textarea').atwho('load', '#', targsArray).atwho('run');
           }
         });
       }
@@ -938,7 +938,8 @@ Template.newsFields.onRendered(function () {
         Meteor.call('searchTagautocomplete', query, function(error, result) {
           if (!error) {
             // console.log(result);
-            self.$('textarea').atwho('load', '#', result).atwho('run');
+            const targsArray = result.map((tag) => ({ id: tag._id._str, name: tag.tag }));
+            self.$('textarea').atwho('load', '#', targsArray).atwho('run');
           }
         });
       }

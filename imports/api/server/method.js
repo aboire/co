@@ -15,7 +15,7 @@ import { Citoyens, BlockCitoyensRest, SchemasCitoyensRest, SchemasInvitationsRes
 import { News, SchemasNewsRest, SchemasNewsRestBase } from '../news.js';
 import { Documents } from '../documents.js';
 import { Cities } from '../cities.js';
-import { Lists } from '../lists.js';
+import { Lists, Tags } from '../lists.js';
 import { Events, SchemasEventsRest, BlockEventsRest } from '../events.js';
 import { Organizations, SchemasOrganizationsRest, BlockOrganizationsRest } from '../organizations.js';
 import { Projects, SchemasProjectsRest, BlockProjectsRest } from '../projects.js';
@@ -929,7 +929,7 @@ Meteor.methods({
     // TODO fix regexp to support multiple tokens
     const regex = new RegExp(`^${query}`);
     // List.find({$or : [{name: {$regex:  regex, $options: "i"}},{'postalCodes.postalCode': {$regex:  regex}}]}, options).fetch();
-    return Lists.findOne({ name: 'tags' }).list;
+    return Tags.find({ tag: { $regex: regex, $options: "i" } }, options).fetch();
   },
   searchMemberautocomplete (search) {
     check(search, Object);
