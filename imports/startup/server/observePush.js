@@ -27,7 +27,7 @@ const pushUser = (title, text, payload, query, badge) => {
     from: 'push',
     title,
     text,
-    payload: payloadStringify,
+    // payload: payloadStringify,
     sound: 'default',
     query,
     badge,
