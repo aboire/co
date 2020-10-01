@@ -659,7 +659,9 @@ Meteor.publishComposite('citoyenActusList', function(limit) {
               if (news.object && news.object.type && news.object.id) {
                 // console.log(news.object.type);
                 const collection = nameToCollection(news.object.type);
-                return collection.find({ _id: new Mongo.ObjectID(news.object.id) }, queryOptions);
+                if (collection) {
+                  return collection.find({ _id: new Mongo.ObjectID(news.object.id) }, queryOptions);
+                }
               }
             },
           }, /*

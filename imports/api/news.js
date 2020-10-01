@@ -387,7 +387,9 @@ if (Meteor.isClient) {
       if (this.object && this.object.type && this.object.id) {
         // console.log(this.object.type);
         const collection = nameToCollection(this.object.type);
-        return collection.findOne({ _id: new Mongo.ObjectID(this.object.id) }, queryOptions);
+        if (collection) {
+          return collection.findOne({ _id: new Mongo.ObjectID(this.object.id) }, queryOptions);
+        }
       }
       return undefined;
     },
