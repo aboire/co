@@ -1,29 +1,30 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { _ } from 'meteor/underscore';
-import { Counts } from 'meteor/tmeasday:publish-counts';
+// import { Counts } from 'meteor/tmeasday:publish-counts';
+import { Counter } from 'meteor/natestrauser:publish-performant-counts';
 
 export const ActivityStream = new Mongo.Collection('activityStream', { idGeneration: 'MONGO' });
 
 ActivityStream.api = {
   Unseen (userId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
-    if (Counts.has(`notifications.${bothUserId}.Unseen`)) {
-      return Counts.get(`notifications.${bothUserId}.Unseen`);
+    if (Counter.get(`notifications.${bothUserId}.Unseen`)) {
+      return Counter.get(`notifications.${bothUserId}.Unseen`);
     }
     return undefined;
   },
   UnseenAsk (userId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
-    if (Counts.has(`notifications.${bothUserId}.UnseenAsk`)) {
-      return Counts.get(`notifications.${bothUserId}.UnseenAsk`);
+    if (Counter.get(`notifications.${bothUserId}.UnseenAsk`)) {
+      return Counter.get(`notifications.${bothUserId}.UnseenAsk`);
     }
     return undefined;
   },
   Unread (userId) {
     const bothUserId = (typeof userId !== 'undefined') ? userId : Meteor.userId();
-    if (Counts.has(`notifications.${bothUserId}.Unread`)) {
-      return Counts.get(`notifications.${bothUserId}.Unread`);
+    if (Counter.get(`notifications.${bothUserId}.Unread`)) {
+      return Counter.get(`notifications.${bothUserId}.Unread`);
     }
     return undefined;
   },

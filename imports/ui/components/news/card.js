@@ -1,6 +1,8 @@
 import { Template } from 'meteor/templating';
 import { Router } from 'meteor/iron:router';
-import { Counts } from 'meteor/tmeasday:publish-counts';
+// import { Counts } from 'meteor/tmeasday:publish-counts';
+import { Counter } from 'meteor/natestrauser:publish-performant-counts';
+
 import i18n from 'meteor/universe:i18n';
 import { IonActionSheet } from 'meteor/meteoric:ionic';
 
@@ -8,10 +10,10 @@ import './card.html';
 
 Template.scopeCard.helpers({
   countsousEvents () {
-    return Counts.get(`countSous.${Router.current().params._id}`);
+    return Counter.get(`countSous.${Router.current().params._id}`);
   },
   issousEvents () {
-    return Counts.get(`countSous.${Router.current().params._id}`) > 0;
+    return Counter.get(`countSous.${Router.current().params._id}`) > 0;
   },
   preferenceTrue (value) {
     return !!((value === true || value === 'true'));

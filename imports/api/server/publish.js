@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
-import { Counts } from 'meteor/tmeasday:publish-counts';
+// import { Counts } from 'meteor/tmeasday:publish-counts';
 import { Counter } from 'meteor/natestrauser:publish-performant-counts';
 import { _ } from 'meteor/underscore';
 import { HTTP } from 'meteor/http';
@@ -135,15 +135,28 @@ Meteor.publish('notificationsUser', function() {
   if (!this.userId) {
     return null;
   }
-  Counts.publish(this, `notifications.${this.userId}.Unseen`, ActivityStream.api.queryUnseen(this.userId), { noReady: true });
-  Counts.publish(this, `notifications.${this.userId}.Unread`, ActivityStream.api.queryUnread(this.userId), { noReady: true });
+
   return ActivityStream.api.isUnread(this.userId);
 });
 
-Meteor.publish('notificationsScope', function(scope, scopeId) {
+Meteor.publish('notificationsCountUser', function () {
+  if (!this.userId) {
+    return null;
+  }
+  const counterUnseen = new Counter(`notifications.${this.userId}.Unseen`, ActivityStream.api.queryUnseen(this.userId));
+  const counterUnread = new Counter(`notifications.${this.userId}.Unread`, ActivityStream.api.queryUnread(this.userId));
+
+  return [
+    counterUnseen,
+    counterUnread,
+  ];
+});
+
+
+Meteor.publish('notificationsScope', function (scope, scopeId) {
   check(scopeId, String);
   check(scope, String);
-  check(scope, Match.Where(function(name) {
+  check(scope, Match.Where(function (name) {
     return _.contains(['events', 'projects', 'organizations', 'citoyens'], name);
   }));
   const collection = nameToCollection(scope);
@@ -153,10 +166,17 @@ Meteor.publish('notificationsScope', function(scope, scopeId) {
   if (!collection.findOne({ _id: new Mongo.ObjectID(scopeId) }).isAdmin(this.userId)) {
     return null;
   }
-  Counts.publish(this, `notifications.${scopeId}.Unseen`, ActivityStream.api.queryUnseen(this.userId, scopeId), { noReady: true });
-  Counts.publish(this, `notifications.${scopeId}.Unread`, ActivityStream.api.queryUnread(this.userId, scopeId), { noReady: true });
-  Counts.publish(this, `notifications.${scopeId}.UnseenAsk`, ActivityStream.api.queryUnseenAsk(this.userId, scopeId), { noReady: true });
-  return collection.findOne({ _id: new Mongo.ObjectID(scopeId) }).listNotifications(this.userId);
+
+  const counterUnseen = new Counter(`notifications.${scopeId}.Unseen`, ActivityStream.api.queryUnseen(this.userId, scopeId));
+  const counterUnread = new Counter(`notifications.${scopeId}.Unread`, ActivityStream.api.queryUnread(this.userId, scopeId));
+  const counterUnseenAsk = new Counter(`notifications.${scopeId}.UnseenAsk`, ActivityStream.api.queryUnseenAsk(this.userId, scopeId));
+
+  return [
+    counterUnseen,
+    counterUnread,
+    counterUnseenAsk,
+    collection.findOne({ _id: new Mongo.ObjectID(scopeId) }).listNotifications(this.userId),
+  ];
 });
 
 Meteor.publish('getcitiesbylatlng', function(latlng) {
@@ -261,38 +281,6 @@ Meteor.publish('geo.dashboard', function (geoId, latlng, radius) {
     counterClassified,
     counterCitoyens,
   ];
-});
-
-Meteor.publish('geo.dashboardOld', function(geoId, latlng, radius) {
-  const query = {};
-  if (radius) {
-    query.geoPosition = {
-      $nearSphere: {
-        $geometry: {
-          type: 'Point',
-          coordinates: [latlng.longitude, latlng.latitude],
-        },
-        $maxDistance: radius,
-      } };
-  } else {
-    query.geoPosition = {
-      $geoIntersects: {
-        $geometry: {
-          type: latlng.type,
-          coordinates: latlng.coordinates,
-        },
-      },
-    };
-  }
-  // console.log(geoId);
-  Counts.publish(this, `countScopeGeo.${geoId}.events`, Events.find(query));
-  Counts.publish(this, `countScopeGeo.${geoId}.organizations`, Organizations.find(query));
-  Counts.publish(this, `countScopeGeo.${geoId}.projects`, Projects.find(query));
-  Counts.publish(this, `countScopeGeo.${geoId}.poi`, Poi.find(query));
-  Counts.publish(this, `countScopeGeo.${geoId}.classified`, Classified.find(query));
-
-  query._id = { $ne: new Mongo.ObjectID(this.userId) };
-  Counts.publish(this, `countScopeGeo.${geoId}.citoyens`, Citoyens.find(query));
 });
 
 

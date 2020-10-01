@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating';
 import { Router } from 'meteor/iron:router';
 import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
-import { Counts } from 'meteor/tmeasday:publish-counts';
+// import { Counts } from 'meteor/tmeasday:publish-counts';
 import { Counter } from 'meteor/natestrauser:publish-performant-counts';
 import { MeteorCameraUI } from 'meteor/aboire:camera-ui';
 import { AutoForm } from 'meteor/aldeed:autoform';
@@ -96,10 +96,10 @@ Template.newsList.helpers({
     return `listCard${Router.current().params.scope}`;
   },
   countsousEvents () {
-    return Counts.get(`countSous.${Router.current().params._id}`);
+    return Counter.get(`countSous.${Router.current().params._id}`);
   },
   issousEvents () {
-    return Counts.get(`countSous.${Router.current().params._id}`) > 0;
+    return Counter.get(`countSous.${Router.current().params._id}`) > 0;
   },
   isVote () {
     return this.type === 'vote';

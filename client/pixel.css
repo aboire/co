@@ -25,6 +25,8 @@ i.icon.ion-navicon{
 
 button.button.button-clear.icon.ion-android-notifications.brand-base-text-color.pull-right {
     display: none;
+}.snapjs-left .snap-drawer-right{
+display: block;
 }
 i.icon.ion-ios-arrow-right{
 	display: none;
@@ -44,6 +46,10 @@ i.icon.ion-ios-arrow-left{
 
 .menu-left a[href="/notifications"].item.item-dark.item-icon-right {
     display: none;
+}
+
+.snapjs-left .snap-drawer-right{
+display: block;
 }
 
 }

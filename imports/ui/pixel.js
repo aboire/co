@@ -13,6 +13,7 @@ import './pixel.html';
 
 Template.layout.onCreated(function() {
   Meteor.subscribe('notificationsUser');
+  Meteor.subscribe('notificationsCountUser');
 });
 
 Template.layout.events({

@@ -19,7 +19,8 @@ Template.notifications.onCreated(function () {
 
   self.autorun(function() {
     const handle = singleSubs.subscribe('notificationsUser');
-    self.ready.set(handle.ready());
+    const handleCount = Meteor.subscribe('notificationsCountUser');
+    self.ready.set(handle.ready() && handleCount.ready());
   });
 });
 
