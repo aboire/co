@@ -1,6 +1,5 @@
 import { Template } from 'meteor/templating';
 import { Router } from 'meteor/iron:router';
-// import { Counts } from 'meteor/tmeasday:publish-counts';
 import { Counter } from 'meteor/natestrauser:publish-performant-counts';
 
 import i18n from 'meteor/universe:i18n';

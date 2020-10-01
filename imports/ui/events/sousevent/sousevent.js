@@ -1,7 +1,6 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Router } from 'meteor/iron:router';
-// import { Counts } from 'meteor/tmeasday:publish-counts';
 
 // collections
 import { Events } from '../../../api/events.js';

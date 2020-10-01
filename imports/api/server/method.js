@@ -103,7 +103,6 @@ const baseDocRetour = (docRetour, doc, scope) => {
         docRetour.url = doc.url ? doc.url : '';
       }
       if (doc.block === 'when') {
-        docRetour.allDay = doc.allDay;
         docRetour.startDate = moment(doc.startDate).format();
         docRetour.endDate = moment(doc.endDate).format();
       }
@@ -173,7 +172,6 @@ const baseDocRetour = (docRetour, doc, scope) => {
       docRetour.shortDescription = doc.shortDescription;
     }
     docRetour.type = doc.type;
-    docRetour.allDay = doc.allDay;
     docRetour.startDate = moment(doc.startDate).format();
     docRetour.endDate = moment(doc.endDate).format();
     docRetour.organizerId = doc.organizerId;
@@ -257,9 +255,6 @@ const baseDocRetour = (docRetour, doc, scope) => {
     }
     if (doc.endDate) {
       docRetour.endDate = moment(doc.endDate).format();
-    }
-    if (doc.allDay) {
-      docRetour.allDay = doc.allDay;
     }
     if (doc.organizerId) {
       docRetour.organizerId = doc.organizerId;

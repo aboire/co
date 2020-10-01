@@ -53,10 +53,6 @@ SchemasEventsRest.extend({
       },
     },
   },
-  allDay: {
-    type: Boolean,
-    defaultValue: false,
-  },
   startDate: {
     type: Date,
   },
@@ -257,7 +253,7 @@ BlockEventsRest.network.extend({
 BlockEventsRest.when = new SimpleSchema(blockBaseSchema, {
   tracker: Tracker,
 });
-BlockEventsRest.when.extend(SchemasEventsRest.pick('allDay', 'startDate', 'endDate'));
+BlockEventsRest.when.extend(SchemasEventsRest.pick('startDate', 'endDate'));
 
 // BlockEventsRest.locality = new SimpleSchema([blockBaseSchema, geoSchema]);
 BlockEventsRest.locality = new SimpleSchema(blockBaseSchema, {
