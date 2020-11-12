@@ -29,7 +29,7 @@
   {{#with scope.room}}
   {{#with proposal}}
   <div class="item item-divider">
-  {{__ 'dda.proposal.proposal'}} : <a href="{{pathFor 'proposalsDetail' _id=parentId scope=parentType roomId=idParentRoom proposalId=_id._str}}" class="positive">{{title}}</a>
+  {{__ 'dda.proposal.proposal'}} : <a href="{{pathFor 'proposalsDetail' _id=parentId scope=parentType roomId=idParentRoom proposalId=_id._str}}" class="positive">{{name}}</a>
   </div>
   {{#each listComments}}
   <div class="list card">

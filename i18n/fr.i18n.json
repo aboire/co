@@ -635,7 +635,7 @@
       }
     },
     "proposalsrest" : {
-      "title":{
+      "name":{
         "label": "Nom de votre proposition"
       },
       "description":{

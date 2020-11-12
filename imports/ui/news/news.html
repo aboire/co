@@ -320,7 +320,7 @@
 
     {{#if equals type 'activityStream'}}
     {{#if equals object.type 'proposals'}}
-    <h2>{{objectNews.title}}</h2>
+    <h2>{{objectNews.name}}</h2>
     {{else}}
     <h2>{{objectNews.name}}</h2>
     {{/if}}
@@ -374,7 +374,7 @@
   {{else if equals object.type 'actions'}}
   <a href="{{pathFor 'actionsDetail' _id=target.id scope=target.type roomId=objectNews.idParentRoom actionId=object.id}}" class="positive">{{objectNews.name}}</a>
   {{else if equals object.type 'proposals'}}
-  <a href="{{pathFor 'proposalsDetail' _id=target.id scope=target.type roomId=objectNews.idParentRoom proposalId=object.id}}" class="positive">{{objectNews.title}}</a>
+  <a href="{{pathFor 'proposalsDetail' _id=target.id scope=target.type roomId=objectNews.idParentRoom proposalId=object.id}}" class="positive">{{objectNews.name}}</a>
   {{else}}
   <a href="{{pathFor 'detailList' _id=object.id scope=object.type}}" class="positive">{{objectNews.name}}</a>
   {{/if}}
