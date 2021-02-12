@@ -15,7 +15,9 @@
     "push-snap": "cd .desktop-installer && snapcraft push --release=stable communecter_0.0.39_amd64.snap",
     "lint": "eslint .",
     "pretest": "npm run lint --silent",
-    "fix": "eslint imports/ --fix"
+    "fix": "eslint imports/ --fix",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor",
@@ -75,7 +77,8 @@
     "markdown-it": "^10.0.0",
     "meteor-node-stubs": "^1.0.0",
     "sanitize-html": "^1.20.0",
-    "simpl-schema": "^1.5.5"
+    "simpl-schema": "^1.5.5",
+    "snyk": "^1.335.0"
   },
   "repository": {
     "type": "git",
@@ -107,5 +110,6 @@
       "client": "client/main.js",
       "server": "server/main.js"
     }
-  }
+  },
+  "snyk": true
 }
