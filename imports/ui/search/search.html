@@ -35,13 +35,13 @@
   {{/if}}
 
   {{#each searchGlobal}}
-  {{#if equals typeSig 'city'}}
+  {{#if equals collection 'city'}}
   <a href="" class="item item-icon-left">
-  <i {{icone typeSig}}></i> {{name}}
+  <i {{icone collection}}></i> {{name}}
   </a>
   {{else}}
-  <a href="{{pathFor 'detailList' _id=_id scope=typeSig}}" class="item {{#if profilThumbImageUrl}}item-avatar{{else}}item-icon-left{{/if}}">
-  {{#if profilThumbImageUrl}}{{> imgDoc}}{{else}}<i {{icone typeSig}}></i>{{/if}} {{name}}
+  <a href="{{pathFor 'detailList' _id=_id scope=collection}}" class="item {{#if profilThumbImageUrl}}item-avatar{{else}}item-icon-left{{/if}}">
+  {{#if profilThumbImageUrl}}{{> imgDoc}}{{else}}<i {{icone collection}}></i>{{/if}} {{name}}
   {{#if address}}<p>{{address.postalCode}} {{address.addressLocality}}</p>{{/if}}
   </a>
   {{/if}}

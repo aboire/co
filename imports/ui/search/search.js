@@ -29,7 +29,7 @@ Template.searchGlobal.onRendered(function () {
           name: arraySearch.name,
           profilThumbImageUrl: arraySearch.profilThumbImageUrl,
           type: arraySearch.type,
-          typeSig: arraySearch.typeSig,
+          collection: arraySearch.collection,
           address: arraySearch.address,
         }));
         // console.log(array);
@@ -64,13 +64,13 @@ Template.searchGlobal.helpers({
     return undefined;
   },
   urlType() {
-    if (this.typeSig === 'citoyens') {
+    if (this.collection === 'citoyens') {
       return { class: 'icon fa fa-user yellow' };
-    } else if (this.typeSig === 'projects') {
+    } else if (this.collection === 'projects') {
       return { class: 'icon fa fa-lightbulb-o purple' };
-    } else if (this.typeSig === 'organizations') {
+    } else if (this.collection === 'organizations') {
       return { class: 'icon fa fa-users green' };
-    } else if (this.typeSig === 'city') {
+    } else if (this.collection === 'city') {
       return { class: 'icon fa fa-university red' };
     }
     return undefined;
