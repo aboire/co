@@ -1,6 +1,12 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable consistent-return */
+/* eslint-disable import/prefer-default-export */
 import { Meteor } from 'meteor/meteor';
 import { HTTP } from 'meteor/http';
-import { request } from 'meteor/froatsnook:request';
+// import { request } from 'meteor/froatsnook:request';
+import FormData from 'form-data';
+import { fetch } from 'meteor/fetch';
+
 
 export const apiCommunecter = {};
 
@@ -118,11 +124,14 @@ const dataUriToBuffer = (uri) => {
   return buffer;
 };
 
-const callPixelUploadRest = (token, folder, ownerId, input, dataURI, name) => {
+
+
+const callPixelUploadRest = async (token, folder, ownerId, input, dataURI, name) => {
   const fileBuf = dataUriToBuffer(dataURI);
   const formData = {};
-  // formData['X-Auth-Token'] = token;
-  // formData['X-User-Id'] = Meteor.userId();
+
+  const form = new FormData();
+
   formData[input] = {
     value: fileBuf,
     options: {
@@ -130,70 +139,148 @@ const callPixelUploadRest = (token, folder, ownerId, input, dataURI, name) => {
       contentType: 'image/jpeg',
     },
   };
-  const requestWithToken = request.defaults({
-    headers: { 'X-Auth-Token': token, 'X-User-Id': Meteor.userId(), 'X-Auth-Name': 'comobi' },
-  });
-  const responsePost = requestWithToken.postSync(`${Meteor.settings.endpoint}/${Meteor.settings.module}/document/upload/dir/communecter/folder/${folder}/ownerId/${ownerId}/input/${input}`, {
-    formData,
-    jar: true,
-  });
-  responsePost.data = JSON.parse(responsePost.response.body);
-  if (responsePost && responsePost.data && responsePost.data.success === true) {
-    return responsePost.data;
+
+
+  const appendFormValue = function (key, value) {
+    if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
+      form.append(key, value.value, value.options);
+    } else {
+      form.append(key, value);
+    }
+  };
+  // eslint-disable-next-line no-restricted-syntax
+  for (const formKey in formData) {
+    if (formData.hasOwnProperty(formKey)) {
+      const formValue = formData[formKey];
+      if (formValue instanceof Array) {
+        for (let j = 0; j < formValue.length; j++) {
+          appendFormValue(formKey, formValue[j]);
+        }
+      } else {
+        appendFormValue(formKey, formValue);
+      }
+    }
   }
-  if (responsePost && responsePost.data && responsePost.data.msg) {
-    throw new Meteor.Error('error_call', responsePost.data.msg);
-  } else {
+
+  try {
+    const response = await fetch(`${Meteor.settings.endpoint}/${Meteor.settings.module}/document/upload/dir/communecter/folder/${folder}/ownerId/${ownerId}/input/${input}`, {
+      method: 'POST',
+      headers: {
+        'X-Auth-Token': token,
+        'X-User-Id': Meteor.userId(),
+        'X-Auth-Name': 'comobi',
+        ...form.getHeaders(),
+        // 'Content-type': 'application/json'
+      },
+      body: form,
+    });
+
+    const data = await response.json();
+
+    if (data && data.success === true) {
+      // console.log(data);
+      return data;
+    }
+    if (data && data.msg) {
+      throw new Meteor.Error('error_call', data.msg);
+    }
+  } catch (error) {
+    // your catch block code goes here
     throw new Meteor.Error('error_server', 'error server');
   }
 };
 
-const callPixelUploadSaveRest = (token, folder, ownerId, input, dataURI, name, doctype, contentKey, params = null) => {
+const callPixelUploadSaveRest = async (token, folder, ownerId, input, dataURI, name, doctype, contentKey, params = null) => {
   const fileBuf = dataUriToBuffer(dataURI);
   const formData = {};
-  // formData['X-Auth-Token'] = token;
-  // formData['X-User-Id'] = Meteor.userId();
+
+  const form = new FormData();
+
   formData[input] = {
     value: fileBuf,
     options: {
       filename: name,
-      contentType: 'image/jpeg',
+      // contentType: 'image/jpeg',
     },
   };
-  if (params){
-    if (params['parentId']){
-      formData['parentId'] = params['parentId'];
+
+  if (params) {
+    if (params.parentId) {
+      formData.parentId = params.parentId;
     }
-    if (params['parentType']) {
-      formData['parentType'] = params['parentType'];
+    if (params.parentType) {
+      formData.parentType = params.parentType;
     }
     if (input) {
-      formData['formOrigin'] = input;
+      formData.formOrigin = input;
     }
   }
-  const requestWithToken = request.defaults({
-    headers: { 'X-Auth-Token': token, 'X-User-Id': Meteor.userId(), 'X-Auth-Name': 'comobi' },
-  });
-  const responsePost = requestWithToken.postSync(`${Meteor.settings.endpoint}/${Meteor.settings.module}/document/uploadSave/dir/communecter/folder/${folder}/ownerId/${ownerId}/input/${input}/docType/${doctype}/contentKey/${contentKey}`, {
-    formData,
-    jar: true,
-  });
-  responsePost.data = JSON.parse(responsePost.response.body);
-  if (responsePost && responsePost.data && responsePost.data.success === true) {
-    return responsePost.data;
+
+  const appendFormValue = function (key, value) {
+    if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
+      form.append(key, value.value, value.options);
+    } else {
+      form.append(key, value);
+    }
+  };
+  // eslint-disable-next-line no-restricted-syntax
+  for (const formKey in formData) {
+    if (formData.hasOwnProperty(formKey)) {
+      const formValue = formData[formKey];
+      if (formValue instanceof Array) {
+        for (let j = 0; j < formValue.length; j++) {
+          appendFormValue(formKey, formValue[j]);
+        }
+      } else {
+        appendFormValue(formKey, formValue);
+      }
+    }
   }
-  if (responsePost && responsePost.data && responsePost.data.msg) {
-    throw new Meteor.Error('error_call', responsePost.data.msg);
-  } else {
+
+  const contentKeyUrl = contentKey ? `/contentKey/${contentKey}` : '';
+
+  // console.log(`${Meteor.settings.endpoint}/${Meteor.settings.module}/document/uploadSave/dir/communecter/folder/${folder}/ownerId/${ownerId}/input/${input}/docType/${doctype}${contentKeyUrl}`);
+
+  // http://localhost:5080/co2/document/uploadSave/dir/communecter/folder/projects/ownerId/5eaf1e396908641b7a8b46c9/input/newsFile/docType/file
+
+  // http://localhost:5080/co2/document/uploadSave/dir/communecter/folder/citoyens/ownerId/55ed9107e41d75a41a558524/input/newsFile/docType/file
+
+  // http://localhost:5080/co2/document/uploadSave/dir/communecter/folder/projects/ownerId/5eaf1e396908641b7a8b46c9/input/newsImage/docType/image/contentKey/slider
+
+
+  try {
+    const response = await fetch(`${Meteor.settings.endpoint}/${Meteor.settings.module}/document/uploadSave/dir/communecter/folder/${folder}/ownerId/${ownerId}/input/${input}/docType/${doctype}${contentKeyUrl}`, {
+      method: 'POST',
+      headers: {
+        'X-Auth-Token': token,
+        'X-User-Id': Meteor.userId(),
+        'X-Auth-Name': 'comobi',
+        ...form.getHeaders(),
+        // 'Content-type': 'application/json'
+      },
+      body: form,
+    });
+
+    const data = await response.json();
+     // console.log(data);
+    if (data && data.success === true) {
+      // console.log(data);
+      return data;
+    }
+    if (data && data.msg) {
+      throw new Meteor.Error('error_call', data.msg);
+    }
+  } catch (error) {
+    // your catch block code goes here
+    // console.log(error);
     throw new Meteor.Error('error_server', 'error server');
   }
 };
 
-
-apiCommunecter.postUploadPixel = (folder, ownerId, input, dataBlob, name) => {
+apiCommunecter.postUploadPixel = async (folder, ownerId, input, dataBlob, name) => {
   const userC = Meteor.users.findOne({ _id: Meteor.userId() });
   if (userC && userC.profile && userC.profile.token) {
-    const retour = callPixelUploadRest(userC.profile.token, folder, ownerId, input, dataBlob, name);
+    const retour = await callPixelUploadRest(userC.profile.token, folder, ownerId, input, dataBlob, name);
     if (retour && retour.name) {
       return retour;
     }
@@ -203,12 +290,12 @@ apiCommunecter.postUploadPixel = (folder, ownerId, input, dataBlob, name) => {
   }
 };
 
-apiCommunecter.postUploadSavePixel = (folder, ownerId, input, dataBlob, name, doctype, contentKey, params = null) => {
+apiCommunecter.postUploadSavePixel = async (folder, ownerId, input, dataBlob, name, doctype, contentKey, params = null) => {
   const userC = Meteor.users.findOne({
     _id: Meteor.userId()
   });
   if (userC && userC.profile && userC.profile.token) {
-    const retour = callPixelUploadSaveRest(userC.profile.token, folder, ownerId, input, dataBlob, name, doctype, contentKey, params);
+    const retour = await callPixelUploadSaveRest(userC.profile.token, folder, ownerId, input, dataBlob, name, doctype, contentKey, params);
     if (retour && retour.name) {
       return retour;
     }

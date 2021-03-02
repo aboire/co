@@ -1332,7 +1332,7 @@ indexMax:20 */
     const retour = apiCommunecter.postPixel('news/co', `delete/id/${newsId}?json=1`, {});
     return retour;
   },
-  photoNews (photo, str, type, idType, newsId) {
+  async photoNews (photo, str, type, idType, newsId) {
     check(str, String);
     check(type, String);
     check(idType, String);
@@ -1369,7 +1369,7 @@ indexMax:20 */
     } else if (!collection.findOne({ _id: new Mongo.ObjectID(idType) }).isAdmin()) {
       throw new Meteor.Error('not-authorized');
     }
-    const doc = apiCommunecter.postUploadSavePixel(type, idType, 'newsImage', photo, str, 'image', 'slider');
+    const doc = await apiCommunecter.postUploadSavePixel(type, idType, 'newsImage', photo, str, 'image', 'slider');
     // const retourUpload = apiCommunecter.postUploadPixel(type, idType, 'newsImage', photo, str);
     if (doc) {
       // console.log(doc);
@@ -1689,7 +1689,7 @@ indexMax:20 */
     const retour = apiCommunecter.postPixel('co2/element', 'save', docRetour);
     return retour;
   },
-  photoScope (scope, photo, str, idType) {
+  async photoScope (scope, photo, str, idType) {
     check(str, String);
     check(idType, String);
     check(scope, String);
@@ -1704,7 +1704,7 @@ indexMax:20 */
       throw new Meteor.Error('not-authorized');
     }
     // const retourUpload = apiCommunecter.postUploadPixel(scope, idType, 'avatar', photo, str);
-    const doc = apiCommunecter.postUploadSavePixel(scope, idType, 'avatar', photo, str, 'image', 'profil');
+    const doc = await apiCommunecter.postUploadSavePixel(scope, idType, 'avatar', photo, str, 'image', 'profil');
     if (doc) {
       /* const insertDoc = {};
       insertDoc.id = idType;
