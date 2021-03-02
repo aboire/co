@@ -1411,8 +1411,8 @@ indexMax:20 */
       insertNew.media.countImages = '1';
       insertNew.media.images = [doc.id.$id];
       const newsIdRetour = Meteor.call('insertNew', insertNew);
-      console.log('retour newsIdRetour');
-      console.log(newsIdRetour);
+      // console.log('retour newsIdRetour');
+      // console.log(newsIdRetour);
       if (newsIdRetour) {
         return { photoret: doc.id.$id, newsId: newsIdRetour.data.id.$id };
       }
