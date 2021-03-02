@@ -2285,7 +2285,9 @@ Meteor.publishComposite('newsList', function(scope, scopeId, limit) {
           }
           if (news.object && news.object.type && news.object.id) {
             const collection = nameToCollection(news.object.type);
-            return collection.find({ _id: new Mongo.ObjectID(news.object.id) }, queryOptions);
+            if (collection) {
+              return collection.find({ _id: new Mongo.ObjectID(news.object.id) }, queryOptions);
+            }
           }
         },
       }, /* ,
