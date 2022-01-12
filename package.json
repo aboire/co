@@ -75,7 +75,7 @@
     "file-type": "^16.2.0",
     "form-data": "^3.0.0",
     "jquery": "^3.5.1",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^12.3.2",
     "meteor-node-stubs": "^1.0.0",
     "sanitize-html": "^1.20.0",
     "simpl-schema": "^1.5.5"
