@@ -77,7 +77,7 @@
     "jquery": "^3.5.1",
     "markdown-it": "^10.0.0",
     "meteor-node-stubs": "^1.0.0",
-    "sanitize-html": "^1.20.0",
+    "sanitize-html": "^2.7.1",
     "simpl-schema": "^1.5.5"
   },
   "repository": {
